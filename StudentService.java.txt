@@ -1,0 +1,21 @@
+@Service
+public class StudentService {
+
+    private final StudentRepository repository;
+
+    public StudentService(StudentRepository repository) {
+        this.repository = repository;
+    }
+
+    public Student addStudent(Student student) {
+          return repository.save(student);
+    }
+
+    public Student getStudent(Long id) {
+        return repository.findById(id);
+    }
+   
+    public List<Subject> allStudents() {
+        return repository.findAll();
+    }
+}

@@ -1,0 +1,28 @@
+@RestController
+@RequestMapping("/students")
+public class StudentController {
+
+    private final StudentService service;
+
+    public StudentController(StudentService service) {
+        this.service = service;
+    }
+
+
+    @PostMapping
+    public Student addStudent(@RequestBody Student student) {
+        return service.addStudent(student);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Student> getStudent(@PathVariable Long id) {
+        return service.getStudent(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping
+    public List<Student> allStudents() {
+        return service.findAll();
+    }
+}
